@@ -1,1 +1,1 @@
-# ProductCatalog - APS.NET MVC 5 project - Simple products catalog
+# Product Catalog APS.NET MVC 5 project 
