@@ -1,0 +1,97 @@
+﻿@using PagedList.Mvc;
+@model  PagedList.IPagedList<Demo.Products.Models.Product>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2 class="text-center m-4">All Products</h2>
+
+<div class="container">
+
+    <div class="row justify-content-sm-center">
+        <div class="col-md-6 ">
+            @using (Html.BeginForm())
+            {
+                <div class="form-group mb-2 ">
+                    @Html.Label("searchQuery", "Filter by name: ")
+                    @Html.TextBox("searchQuery", "")
+                    <input class="btn btn-primary mb-2" type="submit" value="Search" />
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+
+            <div class="card text-white bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-info">Categories</div>
+                <div class="card-body">
+                    <ul class="list-group">
+
+                        @foreach (var item in (IEnumerable<SelectListItem>)ViewData["Category"])
+                        {
+                            <li class="list-group-item">
+                                @Html.ActionLink(item.Text, "Index", new { category = item.Text , @class ="btn btn-primary"})
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-sm-12">
+                    @if (Model != null)
+                    {
+                        <section>
+                            <table class="table table-hover table-bordered">
+                                <tr class="bg-info">
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>Discription</th>
+                                    <th>Price</th>
+                                    <th>Amount</th>
+                                    <th>Category</th>
+                                </tr>
+                                <tbody>
+                                    @foreach (var product in Model)
+                                    {
+                                        <tr>
+                                            <td> @product.Id</td>
+                                            <td> @product.Name</td>
+                                            <td> @product.Code</td>
+                                            <td> @product.Description</td>
+                                            <td> @product.Price</td>
+                                            <td> @product.Amount</td>
+                                            <td> @product.Category.Name</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                           new { page }))
+
+                        </section>
+                    }
+                    else
+                    {
+                        <div class="alert-danger">
+                            no products found
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

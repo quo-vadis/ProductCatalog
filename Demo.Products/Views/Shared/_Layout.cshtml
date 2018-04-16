@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Products Demo</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark h5">
+        @Html.ActionLink("Products.Demo", "Index", "Product", new { area = "" }, new { @class = "navbar-brand h3" })
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav justify-content-between">
+                <li class="nav-item active">
+                    @Html.ActionLink("All Products", "Index", "Product", new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Add products", "Index", new { controller = "Administrator" }, new { hidefocus = "hidefocus" , @class = "nav-link" })
+                </li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+     </nav>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer class="text-center">
+                <p>&copy; @DateTime.Now.Year - Products.Demo by Volodymyr Stetsiv</p>
+            </footer>
+        </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
